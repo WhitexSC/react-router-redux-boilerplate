@@ -1,0 +1,124 @@
+{
+  "avatars": [
+    {
+      "key": 0,
+      "text": "zoe",
+      "value": "zoe.jpg"
+    },
+    {
+      "key": 1,
+      "text": "veronika",
+      "value": "veronika.jpg"
+    },
+    {
+      "key": 2,
+      "text": "tom",
+      "value": "tom.jpg"
+    },
+    {
+      "key": 3,
+      "text": "stevie",
+      "value": "stevie.jpg"
+    },
+    {
+      "key": 4,
+      "text": "steve",
+      "value": "steve.jpg"
+    },
+    {
+      "key": 5,
+      "text": "rachel",
+      "value": "rachel.png"
+    },
+    {
+      "key": 6,
+      "text": "patrick",
+      "value": "patrick.png"
+    },
+    {
+      "key": 7,
+      "text": "nom",
+      "value": "nom.jpg"
+    },
+    {
+      "key": 8,
+      "text": "nan",
+      "value": "nan.jpg"
+    },
+    {
+      "key": 9,
+      "text": "molly",
+      "value": "molly.png"
+    },
+    {
+      "key": 10,
+      "text": "matthew",
+      "value": "matthew.png"
+    },
+    {
+      "key": 11,
+      "text": "matt",
+      "value": "matt.jpg"
+    },
+    {
+      "key": 12,
+      "text": "laura",
+      "value": "laura.jpg"
+    },
+    {
+      "key": 13,
+      "text": "kristy",
+      "value": "kristy.png"
+    },
+    {
+      "key": 14,
+      "text": "justen",
+      "value": "justen.jpg"
+    },
+    {
+      "key": 15,
+      "text": "joe",
+      "value": "joe.jpg"
+    },
+    {
+      "key": 16,
+      "text": "jenny",
+      "value": "jenny.jpg"
+    },
+    {
+      "key": 17,
+      "text": "helen",
+      "value": "helen.jpg"
+    },
+    {
+      "key": 18,
+      "text": "elyse",
+      "value": "elyse.png"
+    },
+    {
+      "key": 19,
+      "text": "elliot",
+      "value": "elliot.jpg"
+    },
+    {
+      "key": 20,
+      "text": "daniel",
+      "value": "daniel.jpg"
+    },
+    {
+      "key": 21,
+      "text": "christian",
+      "value": "christian.jpg"
+    },
+    {
+      "key": 22,
+      "text": "chris",
+      "value": "chris.jpg"
+    },
+    {
+      "key": 23,
+      "text": "ade",
+      "value": "ade.jpg"
+    }
+  ]
+}
