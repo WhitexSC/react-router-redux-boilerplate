@@ -13,12 +13,14 @@ const nonFakeCredentials = {
 const AuthPage = ({ setAuth, clearAuth, userSysInfo, updateUserInfo }) => {
   const [errorMessage, setErrorMessage] = useState();
   const handleLogin = () => {
-    const isValidating = validation(userSysInfo.email)
+    const isValidating = validation(userSysInfo.user.email)
     if (isValidating) {
-      if (userSysInfo.email === nonFakeCredentials.email && userSysInfo.password === nonFakeCredentials.password) {
+      if (userSysInfo.user.email === nonFakeCredentials.email && userSysInfo.user.password === nonFakeCredentials.password) {
         let nonFakeToken = Math.random().toString(36).substring(7);
-        setAuth({ token: nonFakeToken })
-        updateUserInfo({ email: userSysInfo.email })
+        setAuth({
+            token: nonFakeToken,
+        })
+        updateUserInfo({ email: userSysInfo.user.email })
       } else {
         clearAuth()
         setErrorMessage('Wrong username or password')
@@ -68,7 +70,7 @@ const AuthPage = ({ setAuth, clearAuth, userSysInfo, updateUserInfo }) => {
 
 const mapStateToProps = state => {
   return {
-    userSysInfo: state.auth.user,
+    userSysInfo: state.auth,
   };
 };
 

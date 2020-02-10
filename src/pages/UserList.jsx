@@ -1,58 +1,58 @@
 import React from 'react'
 import Header from '../components/Header'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { Container, Table, Form, Select } from 'semantic-ui-react'
+import { updateUserInfo } from '../reducers/userInfoReducer'
+import { sortUsers } from '../fakeApi/fakeApi'
+import { currentNavigation } from '../reducers/authReducer'
+import { getSortedUserList } from '../reducers/selectors'
 
-
-const UserList = () => {
+const UserList = ({ userInfo, updateSearch, userSysInfo, updateNavigation }) => {
+  const userList = getSortedUserList(userInfo)
+  console.log(userList)
   return (
     <div>
       <Container textAlign='justified'>
-        <Header handleAuth={props.handleAuth} activeItem='posts' />
+        <Header activeItem={userSysInfo.navigation.navigation} updateNavigation={updateNavigation} />
         <Form>
           <Form.Field
             control={Select}
-            options={sortOptions}
+            options={sortUsers}
             label={{ children: 'Sort posts', htmlFor: 'form-select-control-gender' }}
             placeholder='sort posts by ..'
-            onChange={(event: React.FormEvent<HTMLSelectElement>, { value }: any) => sortData(value)}
+            onChange={(event, { value }) => updateSearch({ sortBy: value })}
             search
             searchInput={{ id: 'form-select-control-gender' }}
-            value={sortBy}
+            value={userInfo.sortBy}
           />
-
         </Form>
         <Table celled>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>time</Table.HeaderCell>
-              <Table.HeaderCell>user</Table.HeaderCell>
-              <Table.HeaderCell>title</Table.HeaderCell>
+              <Table.HeaderCell>name</Table.HeaderCell>
+              <Table.HeaderCell>working from</Table.HeaderCell>
+              <Table.HeaderCell>currently working</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {
-              (state !== undefined) ? (
-                state.map((el, index) =>
-                  <Table.Row onClick={() => changeMode({ type: 'viewSelectedMode', id: el._id })} key={index} className={el._id}>
-                    <Table.Cell> {el.time} </Table.Cell>
-                    <Table.Cell> <UserCardPopup userEmail={(el.user === user.email) ? ('me') : (el.user)} /> </Table.Cell>
-                    <Table.Cell> {el.title} </Table.Cell>
-                  </Table.Row>
-                )) : <p>Loading...</p>
+              userList.map((el, index) => {
+                return <Table.Row key={index}>
+                  <Table.Cell> {el.name || el.email} </Table.Cell>
+                  <Table.Cell> {el.working_from} </Table.Cell>
+                  <Table.Cell> {el.is_employee ? 'yes' : 'no'} </Table.Cell>
+                </Table.Row>
+              })
             }
           </Table.Body>
           <Table.Footer fullWidth>
             <Table.Row>
               <Table.HeaderCell />
               <Table.HeaderCell colSpan='4'>
-                <Button floated='right' icon labelPosition='left' primary size='small'
-                  onClick={() => changeMode({ type: 'addMode' })} >
-                  <Icon name='pencil alternate' /> Add Post
-                        </Button>
               </Table.HeaderCell>
             </Table.Row>
           </Table.Footer>
-
         </Table>
       </Container>
     </div>
@@ -61,13 +61,15 @@ const UserList = () => {
 
 const mapStateToProps = state => {
   return {
-
+    userInfo: state.userInfo,
+    userSysInfo: state.auth,
   }
 }
 
 const mapDispatchtoProps = dispatch => {
   return {
-
+    updateSearch: payload => dispatch(updateUserInfo(payload)),
+    updateNavigation: payload => dispatch(currentNavigation(payload))
   }
 }
 
@@ -75,3 +77,10 @@ export default connect(
   mapStateToProps,
   mapDispatchtoProps
 )(UserList)
+
+UserList.propTypes = {
+  userInfo: PropTypes.object,
+  updateSearch: PropTypes.func,
+  userSysInfo: PropTypes.object,
+  updateNavigation: PropTypes.func,
+}

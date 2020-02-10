@@ -5,10 +5,10 @@ import Header from '../components/Header'
 import { currentNavigation } from '../reducers/authReducer'
 import { connect } from 'react-redux'
 
-const Dashboard = ({ updateNavigation, state }) => {
+const Dashboard = ({ updateNavigation, userSysInfo }) => {
   return (
     <>
-      <Header activeItem={state.navigation} updateNavigation={updateNavigation} />
+      <Header activeItem={userSysInfo.navigation.navigation} updateNavigation={updateNavigation} />
       <UserProfile />
     </>
   )
@@ -16,16 +16,14 @@ const Dashboard = ({ updateNavigation, state }) => {
 
 const mapStateToProps = state => {
   return {
-    state: state.auth
+    userSysInfo: state.auth
   }
 }
-
 const mapDispatchToProps = dispatch => {
   return {
     updateNavigation: payload => dispatch(currentNavigation(payload))
   };
 };
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
@@ -33,5 +31,5 @@ export default connect(
 
 Dashboard.propTypes = {
   updateNavigation: PropTypes.func,
-  state: PropTypes.object
+  userSysInfo: PropTypes.object
 }

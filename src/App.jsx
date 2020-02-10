@@ -1,53 +1,43 @@
 import React, { useEffect, Suspense, lazy } from 'react';
 import { Switch, Route, Redirect, Router } from 'react-router-dom'
 import history from './utils/history'
-// import { CookiesProvider } from 'react-cookie'
 import PropTypes from 'prop-types'
 import { connect } from "react-redux";
 import { setAuthData } from './reducers/authReducer';
 
 const AuthPage = lazy(() => import('./pages/AuthPage'));
 const UserProfilePage = lazy(() => import('./pages/UserProfilePage'));
-// const PostPage = lazy(() => import('./components/PostPage/PostPage'));
+const UserList = lazy(() => import('./pages/UserList'));
 
-const App = ({ userSysInfo, deleteToken }) => {
-
+const App = ({ userSysInfo, updateSysInfo }) => {
   useEffect(() => {
-    console.log(userSysInfo)
-    if (!userSysInfo.user.token) {
-      return () => history.push(`/auth`)
-    } else if (userSysInfo.navigation === 'logout') {
+    if (userSysInfo.navigation.navigation === 'auth' || !userSysInfo.user.token || userSysInfo.user.token.length === 0) {
+      if (userSysInfo.user.token.length !== 0) updateSysInfo({ token: '' });
       return () => {
         history.push(`/auth`)
-        deleteToken();
       }
-    } else return () => history.push(`/${userSysInfo.navigation}`)
-  }, [userSysInfo.navigation])
+    } else return () => history.push(`/${userSysInfo.navigation.navigation}`);
+  }, [userSysInfo.navigation, userSysInfo.token])
 
   return (
     <div className='container'>
       <div className='row'>
-        {/* <CookiesProvider> */}
         <Router history={history}>
           <Suspense fallback={<div>Loading...</div>}>
-            <Switch>
-              {
-                (userSysInfo.user.token && userSysInfo.user.token.length !== 0 && userSysInfo.navigation !== 'logout')
-                  ? <Switch>
-                    <Route exact path='/A list of previous employees who are no longer in the company;' render={() => <UserProfilePage />} />
-                    <Route exact path='/userlist' render={() => <UserList />} />
-                    {/* <Route exact path='/dashboard/posts/add' component={AddPostForm} /> */}
-                    <Redirect to="/A list of previous employees who are no longer in the company;" />
-                  </Switch>
-                  : <>
-                    <Route path='/auth' render={() => <AuthPage />} />
-                    <Redirect to="/auth" />
-                  </>
-              }
-            </Switch>
+            {
+              (userSysInfo.user.token && userSysInfo.user.token.length !== 0 && userSysInfo.navigation.navigation !== 'logout')
+                ? <Switch>
+                  <Route exact path='/userinfo' render={() => <UserProfilePage />} />
+                  <Route exact path='/userlist' render={() => <UserList />} />
+                  <Redirect to="/userinfo" />
+                </Switch>
+                : <>
+                  <Route path='/auth' render={() => <AuthPage />} />
+                  <Redirect to="/auth" />
+                </>
+            }
           </Suspense>
         </Router>
-        {/* </CookiesProvider> */}
       </div>
     </div >
   )
@@ -60,7 +50,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    deleteToken: () => dispatch(setAuthData({ token: 0 }))
+    updateSysInfo: payload => dispatch(setAuthData(payload))
   }
 }
 export default connect(
@@ -70,5 +60,6 @@ export default connect(
 
 App.propTypes = {
   userSysInfo: PropTypes.object,
-  deleteToken: PropTypes.func
+  updateSysnfo: PropTypes.func
+
 }

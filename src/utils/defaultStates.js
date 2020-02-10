@@ -4,7 +4,7 @@ export const DEFAULT_AUTHENTICATION_STATE = {
     password: '',
     token: '',
   },
-  navigation: 'dashboard'
+  navigation: 'userinfo'
 }
 
 export const DEFAULT_USER_INFO_STATE = {
@@ -18,5 +18,5 @@ export const DEFAULT_USER_INFO_STATE = {
   working_from: "",
   skills: [],
   is_employee: false,
-  sortBy: 'skills'
+  sortBy: 'name'
 }

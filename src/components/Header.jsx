@@ -1,15 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Menu, Container } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import styles from '../utils/styles'
 
-const Header = ({ activeItem, updateNavigation }) => {
+const Header = ({ activeItem = 'userinfo', updateNavigation }) => {
+  useEffect(() => {
+
+  }, [activeItem])
   return (
-    <Container justified>
+    <Container>
       <Menu style={styles.headerStyle} tabular>
-        <Menu.Item name='userinfo' active={activeItem === 'userinfo'} onClick={() => updateNavigation('userinfo')} />
-        <Menu.Item name='userlist' active={activeItem === 'userlist'} onClick={() => updateNavigation('userlist')} />
-        <Menu.Item name='logout' active={activeItem === 'logout'} onClick={() => updateNavigation('logout')} />
+        <Menu.Item name='userinfo' active={activeItem === 'userinfo'} onClick={() => updateNavigation({ navigation: 'userinfo' })} />
+        <Menu.Item name='userlist' active={activeItem === 'userlist'} onClick={() => updateNavigation({ navigation: 'userlist' })} />
+        <Menu.Item name='logout' active={activeItem === 'auth'} onClick={() => updateNavigation({ navigation: 'auth' })} />
       </Menu>
     </Container>
   )

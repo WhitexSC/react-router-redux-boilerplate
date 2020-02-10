@@ -10,7 +10,7 @@ const UserCard = ({ userInfo }) => {
     : `${picturePath}${userInfo.picture}`
   return (
     <Card>
-      <Header as='h4'>Preview</Header>
+      <Header as='h4'>{userInfo.name || 'no name'}</Header>
       <Image className='picture' size='mini' src={avatar} wrapped ui={false} />
       <Card.Content>
         <Card.Header>{userInfo.email}</Card.Header>
