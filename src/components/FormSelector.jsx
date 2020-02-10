@@ -7,7 +7,6 @@ import { fakeAges, nationality, position } from '../fakeApi/fakeApi'
 const avatars = require('../utils/avatar.json')
 
 const FormSelector = ({ dataType, updateUserInfo, userInfo }) => {
-  console.log(userInfo)
   let placeholder = ''
   let label = ''
   let htmlFor = ''
@@ -33,6 +32,7 @@ const FormSelector = ({ dataType, updateUserInfo, userInfo }) => {
         label = 'Select position'
         placeholder = 'position'
         return position
+      default: return
     }
   }
 
@@ -61,7 +61,6 @@ const FormSelector = ({ dataType, updateUserInfo, userInfo }) => {
           updateUserInfo({ [dataType]: value })
         }
         search
-        searchInput={{ id: { htmlFor } }}
         value={userInfo.dataType}
       />
     }

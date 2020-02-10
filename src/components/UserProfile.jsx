@@ -6,7 +6,7 @@ import UserProfileInfo from './UserProfileInfo'
 
 const UserProfile = () => {
   return (
-    <Container justified>
+    <Container justified={true.toString()}>
       <Grid>
         <Grid.Row>
           <Grid.Column width={2} />

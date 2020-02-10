@@ -10,7 +10,6 @@ import { getSortedUserList } from '../reducers/selectors'
 
 const UserList = ({ userInfo, updateSearch, userSysInfo, updateNavigation }) => {
   const userList = getSortedUserList(userInfo)
-  console.log(userList)
   return (
     <div>
       <Container textAlign='justified'>
