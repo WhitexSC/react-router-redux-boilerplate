@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Grid, Header } from 'semantic-ui-react';
-import { setAuthData, clearAuthData } from '../reducers/authReducer';
+import { setAuthData, clearAuthData, currentNavigation } from '../reducers/authReducer';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types'
 import { updateUserInfo } from '../reducers/userInfoReducer';
@@ -10,17 +10,16 @@ const nonFakeCredentials = {
   password: 'admin'
 }
 
-const AuthPage = ({ setAuth, clearAuth, userSysInfo, updateUserInfo }) => {
+const AuthPage = ({ setAuth, clearAuth, userSysInfo, updateUserInfo, updateNavigation }) => {
   const [errorMessage, setErrorMessage] = useState();
   const handleLogin = () => {
     const isValidating = validation(userSysInfo.user.email)
     if (isValidating) {
       if (userSysInfo.user.email === nonFakeCredentials.email && userSysInfo.user.password === nonFakeCredentials.password) {
         let nonFakeToken = Math.random().toString(36).substring(7);
-        setAuth({
-            token: nonFakeToken,
-        })
+        setAuth({ token: nonFakeToken })
         updateUserInfo({ email: userSysInfo.user.email })
+        updateNavigation({navigation: 'userinfo'})
       } else {
         clearAuth()
         setErrorMessage('Wrong username or password')
@@ -78,7 +77,8 @@ const mapDispatchToProps = dispatch => {
   return {
     setAuth: payload => dispatch(setAuthData(payload)),
     clearAuth: () => dispatch(clearAuthData()),
-    updateUserInfo: payload => dispatch(updateUserInfo(payload))
+    updateUserInfo: payload => dispatch(updateUserInfo(payload)),
+    updateNavigation: payload => dispatch(currentNavigation(payload))
   };
 };
 
@@ -93,4 +93,6 @@ AuthPage.propTypes = {
   clearAuth: PropTypes.func,
   userSysInfo: PropTypes.object,
   updateUserInfo: PropTypes.func,
+  updateNavigation: PropTypes.func,
+  
 }

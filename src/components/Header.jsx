@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Menu, Container } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import styles from '../utils/styles'
 
 const Header = ({ activeItem = 'userinfo', updateNavigation }) => {
-  useEffect(() => {
-
-  }, [activeItem])
   return (
     <Container>
       <Menu style={styles.headerStyle} tabular>

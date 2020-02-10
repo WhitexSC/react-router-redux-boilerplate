@@ -11,17 +11,8 @@ const FormSelector = ({ dataType, updateUserInfo, userInfo }) => {
   let placeholder = ''
   let label = ''
   let htmlFor = ''
-  let type = ''
   const options = () => {
     switch (dataType) {
-      // case "password":
-      //   label = 'password'
-      //   type = 'password'
-      case "name":
-        placeholder = 'name'
-        label = 'Type your name'
-        type = 'text'
-        return
       case "picture":
         htmlFor = 'form-select-control-picture'
         label = 'Select avatar'

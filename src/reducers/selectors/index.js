@@ -32,7 +32,7 @@ export const getSortedUserList = createSelector(
       case 'working_from':
         return userList.sort(compareDate)
       case 'is_employee':
-        return userList.filter(el => el.is_employee)
+        return userList.filter(el => !el.is_employee)
     }
   }
 )
